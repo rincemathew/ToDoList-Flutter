@@ -1,13 +1,19 @@
 import 'package:flutter/material.dart';
 
-class ToDoList extends StatefulWidget {
-  const ToDoList({super.key});
+// ignore: must_be_immutable
+class ToDoList extends StatelessWidget {
+  ToDoList(
+      {super.key,
+      required this.taskName,
+      required this.taskCompleted,
+      required this.onChanged});
 
-  @override
-  State<ToDoList> createState() => _ToDoListState();
-}
+  final String taskName;
 
-class _ToDoListState extends State<ToDoList> {
+  final bool taskCompleted;
+
+  Function(bool?)? onChanged;
+
   @override
   Widget build(BuildContext context) {
     return Padding(
@@ -16,7 +22,15 @@ class _ToDoListState extends State<ToDoList> {
         padding: const EdgeInsets.all(24),
         decoration: BoxDecoration(
             color: Colors.yellow, borderRadius: BorderRadius.circular(12)),
-        child: const Text("make turorial"),
+        child: Row(
+          children: [
+            //check box
+            Checkbox(value: taskCompleted, onChanged: onChanged),
+
+            //task name
+            Text(taskName),
+          ],
+        ),
       ),
     );
   }
